@@ -18,8 +18,14 @@ Vagrant.configure("2") do |config|
     #vb.check_guest_additions = false
 		#vb.customize ["modifyvm", :id, "--natnet1", "10.10.10/24"]
   end
+
   config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
+    apt-get update -q
+    apt-get install -y tar unzip
+    # Install ruby build dependencies
+    apt-get install -f -y git curl libcurl4-openssl-dev wget build-essential subversion autoconf libpq-dev libsqlite3-dev libmysqlclient-dev zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev bison qt4-qmake libqtwebkit-dev libffi-dev net-tools
+    apt install -y libssl1.0-dev
+
     #apt-get install -y tar unzip apache2 unoconv
     # ref: https://docs.moodle.org/all/es/Universal_Office_Converter_(unoconv)
     # mkdir /var/www/.config
@@ -32,8 +38,7 @@ Vagrant.configure("2") do |config|
     ruby23.vm.provision :shell, path: "vagrant/provision.sh", privileged: true
   end
   #config.vm.provision "shell", :path => "vagrant/provision.sh"
-  
-  
+
   #sudo -H -u root /bin/bash << 'SCRIPT'
   #export PATH=/opt/rubies/ruby-1.9.3-p547/bin:$PATH
   #  gem install thin --no-ri --no-rdoc
