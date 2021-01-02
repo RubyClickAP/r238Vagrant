@@ -31,4 +31,6 @@ rbenv rehash
 
 sudo -H -u vagrant /bin/bash << 'SCRIPT'
   echo 'gem: --user-install --no-rdoc --no-ri' >> ~/.gemrc
+  #gem install activesupport -v 5.2.4.4
+  #gem install bundler
 SCRIPT
